@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <title>Weather app</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="wave one"></div>
+      <div class="wave two"></div>
+      <div class="wave three"></div>
+
+      <div id="weathercon">
+        <i class="fas fa-sun" style="color: #eccc68"></i>
+      </div>
+
+      <div class="info">
+        <h2 class="location">
+          <i class="fas fa-street-view"></i> {%location%},{%country%}
+        </h2>
+        <p id="data"></p>
+        <h1 class="temp">{%tempval%}</h1>
+        <h3 class="tempin_max">Min {%tempmin%} | Max {%tempmax%}</h3>
+      </div>
+    </div>
+
+    <script>
+      const today = document.getElementById("data");
+
+      const getDay = () => {
+        let weekDay = new Array(7);
+        weekDay[0] = "Sunday";
+        weekDay[1] = "Monday";
+        weekDay[2] = "Tuesday";
+        weekDay[3] = "Wednesday";
+        weekDay[4] = "Thursday";
+        weekDay[5] = "Friday";
+        weekDay[6] = "Saturday";
+
+        let currentDay = new Date();
+        let day = weekDay[currentDay.getDay()];
+        return day;
+      };
+
+      const getTime = () => {
+        let monthDays = [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUNE",
+          "JULY",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+        let now = new Date();
+        let month = monthDays[now.getMonth()];
+        let date = now.getDate();
+        let hrs = now.getHours();
+        let mint = now.getMinutes();
+        console.log(mint);
+        let period = "AM";
+        if (hrs > 11) {
+          period = "PM";
+          if (hrs > 12) hrs -= 12;
+        }
+        if (mint < 10) {
+          mint = "0" + mint;
+        }
+        return `${month} ${date} | ${hrs}:${mint} ${period}`;
+      };
+      today.innerHTML = getDay() + " | " + getTime();
+    </script>
+  </body>
+</html>
