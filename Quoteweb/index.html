@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>hell</h1>
+      <div id="quote"></div>
+      <div id="authr"></div>
+      <button id="showQ">Next Quote</button>
+    </div>
+
+    <script>
+      const quote = document.getElementById("quote");
+      const authr = document.getElementById("authr");
+      const ShowQ = document.getElementById("showQ");
+      let result = "";
+      let QuoteText = "";
+      let QuoteAuthr = "";
+
+      const showData = () => {
+        let Rnumber = Math.floor(Math.random() * 20);
+        QuoteText = result[Rnumber].text;
+        QuoteAuthr = result[Rnumber].author;
+        quote.innerText = `"${QuoteText}"`;
+
+        if (QuoteAuthr == null) {
+          authr.innerText = `By unknown`;
+        } else {
+          authr.innerText = ` By ${QuoteAuthr}`;
+        }
+      };
+
+      const getApi = async () => {
+        const api = "https://type.fit/api/quotes";
+        try {
+          let getData = await fetch(api);
+          result = await getData.json();
+          showData();
+        } catch (error) {}
+      };
+      ShowQ.addEventListener("click", showData);
+      getApi();
+    </script>
+  </body>
+</html>
